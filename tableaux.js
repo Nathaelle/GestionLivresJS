@@ -1,9 +1,4 @@
 "use strict";
-/*
-Exercice 5 : (que l'on verra demain)
-Notre tableau contient, jusqu'à présent, des livres, identifiés par leur titre.
-Seulement, nous aimerions représenter notre livre, comme ayant un ensemble de caractéristiques, à savoir : son titre bien évidemment mais aussi son auteur, ainsi que le genre auquel il appartient.
-5.1. Je vous demanderai donc de représenter un livre, avec la structure adéquate. */
 
 /* var livre1 = {
     auteur: "Victor Hugo",
@@ -25,28 +20,45 @@ var Livre = function (titre, auteur, genre) {
 };
 
 // Création de nos objets type Livre (objets concrets, c'est à dire avec des valeurs renseignées)
-var livre1 = new Livre("Les Misérables", "Victor Hugo", "Classique");
+var livre1 = new Livre("les Misérables", "Victor Hugo", "Classique");
 var livre2 = new Livre("Le Petit Prince", "St Exupéry", "Classique");
 var livre3 = new Livre("Voyage au bout de la nuit", "Céline", "Classique");
+var livre4 = new Livre("le rouge et le noir", "Stendhal", "Classique");
+var livre5 = new Livre("L'écume des jours", "Boris Vian", "Classique");
+var livre6 = new Livre("Fables", "Jean de la Fontaine", "Classique");
+var livre7 = new Livre("Le seigneur des anneaux", "J.R.R Tolkien", "Fantasy");
+var livre8 = new Livre("Candide", "Voltaire", "Classique");
+var livre9 = new Livre("Voyage au centre de la terre", "Jules Verne", "Classique");
 
+// bibliotheque est un TABLEAU
+// chaque élément est un OBJET
+var bibliotheque = [livre1, livre2, livre3, livre4, livre5, livre6, livre7, livre8, livre9];
 
-console.log(livre1);
-
-var bibliotheque = [livre1, livre2, livre3];
-
+// Pour rappel...
 console.log(bibliotheque[0].auteur);
 console.log(bibliotheque[2].titre);
 
 // Mon tableau avec ses valeurs initiales :
-var livres = ["les Misérables", "le Petit Prince", "Voyage au bout de la nuit", "le rouge et le noir", "L'écume des jours", "fables", "Le seigneur des anneaux", "Candide", "Voyage au centre de la terre"];
+//var livres = ["les Misérables", "le Petit Prince", "Voyage au bout de la nuit", "le rouge et le noir", "L'écume des jours", "fables", "Le seigneur des anneaux", "Candide", "Voyage au centre de la terre"];
 
 
 // Appel des fonctions : affichage de la liste "initial"
-var len = livres.length;
+var len = bibliotheque.length;
 for(var i = 0; i < len; i++) {
-    livres[i] = upperize(livres[i]); // <- On met toutes les premières lettres en majuscules pour faciliter le tri
+    bibliotheque[i].titre = upperize(bibliotheque[i].titre); // <- On met toutes les premières lettres en majuscules pour faciliter le tri
+    bibliotheque[i].auteur = upperize(bibliotheque[i].auteur);
+    bibliotheque[i].genre = upperize(bibliotheque[i].genre);
 }
-livres.sort(); // <- On trie les données du tableau
+bibliotheque.sort(function compare(a, b) {
+    if (a.titre < b.titre) {
+        return -1;
+    } else if (a.titre > b.titre) {
+        return 1;
+    } else {
+        return 0;
+    }
+}); // <- On trie les données du tableau sur le critère de la propriété titre de nos objets
+  
 afficheListe(); // <- On affiche la liste initialement
 
 
@@ -60,22 +72,21 @@ function upperize(str) {
     return str;
 }
 
-console.log(livres);
-
 /**
  * Fonction chargée d'afficher la liste triée
  * Modifie le DOM directement
- * Pas de retour
+ * Pas de retour, mais attention, on utilise bibliotheque qui est globale (même si, à terme, ce n'est pas conseillé..)
  */
 function afficheListe() {
     var html = ""; // <- Contiendra le HTML "reconstitué"
-    var len = livres.length; // <- Pour condition d'arrêt de la boucle
+    var len = bibliotheque.length; // <- Pour condition d'arrêt de la boucle
 
     for (var i = 0; i < len; i++) {
-        html = html + "<li>" + livres[i] + "</li>"; // On concatène les <li>, on peut aussi faire : html += "<li>" + livres[i] + "</li>";
+        html = html + "<li>" + bibliotheque[i].titre + "</li>"; // On concatène les <li>, on peut aussi faire : html += "<li>" + livres[i] + "</li>";
     }
 
     document.getElementById("liste").innerHTML = html;// <- On insère la nouvelle liste dans le DOM
+    console.log(bibliotheque);
 }
 
 
@@ -93,11 +104,24 @@ form.addEventListener("submit", function (e) { // <- On récupère l'évènement
 
     e.preventDefault(); // <- (...) et on stoppe son comportement par défaut
 
-    var input = document.getElementById("livre"); // On récupère notre ELEMENT input
+    var inputTitre = document.getElementById("titre"); // On récupère notre ELEMENT input
+    var inputAuteur = document.getElementById("auteur"); // On récupère notre ELEMENT input
+    var inputGenre = document.getElementById("genre"); // On récupère notre ELEMENT input
 
-    livres.push(upperize(input.value)); // <- On ajoute sa PROPRIETE "VALUE" au tableau
-    livres.sort(); // <- On retrie les données du tableau
+    var livre = new Livre(upperize(inputTitre.value), upperize(inputAuteur.value), upperize(inputGenre.value));
+
+    bibliotheque.push(livre); // <- On ajoute sa PROPRIETE "VALUE" au tableau
+    bibliotheque.sort(function compare(a, b) {
+        if (a.titre < b.titre) {
+            return -1;
+        } else if (a.titre > b.titre) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }); // <- On retrie les données du tableau
 
     afficheListe(); // <- On met à jour la liste à chaque affichage
 
 });
+
