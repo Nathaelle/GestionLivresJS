@@ -1,16 +1,41 @@
 "use strict";
+/*
+Exercice 5 : (que l'on verra demain)
+Notre tableau contient, jusqu'à présent, des livres, identifiés par leur titre.
+Seulement, nous aimerions représenter notre livre, comme ayant un ensemble de caractéristiques, à savoir : son titre bien évidemment mais aussi son auteur, ainsi que le genre auquel il appartient.
+5.1. Je vous demanderai donc de représenter un livre, avec la structure adéquate. */
 
-/* Exercice 4 : (revoir charAt() dans doc, ainsi que slice() )
-Une chaîne de caractères, est considérée en JS, comme un tableau de caractères. Chaque caractère a donc, un indice, qui exprime sa position dans la chaîne.
-4.0. Mettre toutes les premières lettres des titres en minuscules (pour ne pas s'embêter avec la saisie)
-4.1. A l'aide de la documentation, afficher l'ensemble des premiers caractères du tableau, en Majuscules.
-4.2. Afficher cette fois, pour l'ensemble des éléments du tableau, les chaînes de caractères à partir de leur deuxième caractère
-4.3 A partir des observations précédentes, modifier chacun des éléments, en reconstituant les chaînes de caractères avec leur première lettre en majuscule. */
+/* var livre1 = {
+    auteur: "Victor Hugo",
+    titre: "Les Misérables",
+    genre: "Classique"
+} */
 
-// var str = "Bonjour !";
-// console.log(str.charAt(0));
+/**
+ * Prototype représentant un Livre (comme un ensemble de caractéristiques communes à tout Livre)
+ * (Première lettre en Majuscule par convention)
+ * @param {string} titre : Titre du livre
+ * @param {string} auteur : Auteur du livre
+ * @param {string} genre : Genre littéraire
+ */
+var Livre = function (titre, auteur, genre) {
+    this.titre = titre;
+    this.auteur = auteur;
+    this.genre = genre;
+};
 
-var livre = {};
+// Création de nos objets type Livre (objets concrets, c'est à dire avec des valeurs renseignées)
+var livre1 = new Livre("Les Misérables", "Victor Hugo", "Classique");
+var livre2 = new Livre("Le Petit Prince", "St Exupéry", "Classique");
+var livre3 = new Livre("Voyage au bout de la nuit", "Céline", "Classique");
+
+
+console.log(livre1);
+
+var bibliotheque = [livre1, livre2, livre3];
+
+console.log(bibliotheque[0].auteur);
+console.log(bibliotheque[2].titre);
 
 // Mon tableau avec ses valeurs initiales :
 var livres = ["les Misérables", "le Petit Prince", "Voyage au bout de la nuit", "le rouge et le noir", "L'écume des jours", "fables", "Le seigneur des anneaux", "Candide", "Voyage au centre de la terre"];
