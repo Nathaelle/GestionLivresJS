@@ -10,6 +10,8 @@ Une chaîne de caractères, est considérée en JS, comme un tableau de caractè
 // var str = "Bonjour !";
 // console.log(str.charAt(0));
 
+var livre = {};
+
 // Mon tableau avec ses valeurs initiales :
 var livres = ["les Misérables", "le Petit Prince", "Voyage au bout de la nuit", "le rouge et le noir", "L'écume des jours", "fables", "Le seigneur des anneaux", "Candide", "Voyage au centre de la terre"];
 
